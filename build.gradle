@@ -1,0 +1,60 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.audit'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    mapstructVersion = "1.5.0.Beta2"
+    lombokVersion = "1.18.20"
+    lombokMapstructBindingVersion = "0.2.0"
+    springFox = "3.0.0"
+    hibernateValidator = "6.0.9.Final"
+    adminServer = "2.6.0"
+    adminCleint = "2.6.0"
+    actuator = "2.6.2"
+    jpamodelgen = "5.6.3.Final"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'io.projectreactor.kafka:reactor-kafka:1.2.2.RELEASE'
+    implementation 'org.liquibase:liquibase-core:4.4.3'
+
+    implementation("io.springfox:springfox-boot-starter:${springFox}")
+    implementation("org.hibernate.validator:hibernate-validator:${hibernateValidator}")
+    implementation("de.codecentric:spring-boot-admin-starter-server:${adminServer}")
+    implementation("de.codecentric:spring-boot-admin-starter-client:${adminCleint}")
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${actuator}"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'io.projectreactor.kafka:reactor-kafka:1.2.2.RELEASE'
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}",
+            "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'io.r2dbc:r2dbc-postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.5.8'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+    useJUnitPlatform()
+}

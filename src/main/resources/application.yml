@@ -1,0 +1,45 @@
+server:
+  port: 8083
+
+spring:
+  r2dbc:
+    url: ${POSTGRES_URL:r2dbc:postgresql://localhost:5430/postgres}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:123456}
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  liquibase:
+    url: jdbc:postgresql://localhost:5430/postgres
+    user: postgres
+    password: 123456
+    change-log: classpath:db.changelog/init.xml
+
+  kafka:
+    bootstrap-servers: ${AUDIT_PRODUCER_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: reactivekafkaconsumerandproducer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      poll-timeout: 3000
+      ack-time: 3000
+
+
+
+kafka:
+  properties:
+    topic: ${AUDIT_TOPIC:audit}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  file:
+    name: logs/client.log
+    path: logs
