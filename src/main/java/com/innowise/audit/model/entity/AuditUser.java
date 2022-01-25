@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class AuditUser implements Persistable<Integer> {
     private Integer id;
     private String action;
     private String body;
-    private LocalDateTime localDateTime;
+    private Timestamp date;
 
     @Transient
     private boolean newAudit;

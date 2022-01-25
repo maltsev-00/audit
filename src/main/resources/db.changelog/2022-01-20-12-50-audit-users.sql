@@ -1,6 +1,7 @@
 create table audit_user
 (
-    id SERIAL   not null primary key,
+    id SERIAL  not null primary key,
     action varchar(255),
-    response varchar (1000)
+    body varchar (1000),
+    date TIMESTAMP
 );
